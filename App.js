@@ -1,64 +1,32 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, TextInput, TouchableHighlight} from 'react-native';
 import React from 'react';
 import Onboarding from 'react-native-onboarding-swiper';
+import AsyncStorage from '@react-native-community/async-storage'
 
 import Intro from './src/pages/Intro';
+import Reactotron from 'reactotron-react-native';
+
+console.tron = Reactotron
+  .setAsyncStorageHandler(AsyncStorage) // AsyncStorage would either come from `react-native` or `@react-native-community/async-storage` depending on where you get it from
+  .configure({
+    name: "React Native Demo"
+  })
+  .useReactNative({
+    asyncStorage: false, // there are more options to the async storage.
+    networking: { // optionally, you can turn it off with false.
+      ignoreUrls: /symbolicate/
+    },
+    editor: false, // there are more options to editor
+    errors: { veto: (stackFrame) => false }, // or turn it off with false
+    overlay: false, // just turning off overlay
+  })
+  .connect();
 const Simple = () => (
   <Onboarding
     onDone={() => console.log('done')}
     showSkip={false}
     pages={[
       Intro,
-      {
-        backgroundColor: '#a61202',
-        // image: <Image source={require('./images/circle.png')} />,
-        title: (
-          <View style={{flexDirection: 'row'}}>
-            <View>
-              <TextInput
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'white',
-                }}
-                // value = {this.state.searchString}
-                placeholder="Search"
-                keyboardType="web-search"
-              />
-            </View>
-            <TouchableHighlight
-              style={{alignItems: 'center', justifyContent: 'center'}}
-              underlayColor="transparent">
-              <View>
-                {/* <Icon name="search" size={20} color="#4285F4" /> */}
-              </View>
-            </TouchableHighlight>
-          </View>
-        ),
-        subtitle: 'Teste',
-        // (
-        // <View
-        //   style={{
-        //     backgroundColor: '#fff',
-        //     padding: 10,
-        //     alignItems: 'center',
-        //     justifyContent: 'center',
-        //   }}>
-
-        // autoCapitalize="none"
-        // autoCorrect={false}
-        // placeholder="Search"
-        // style={{
-        //   borderRadius: 25,
-        //   borderColor: '#333',
-        //   backgroundColor: '#fff',
-        // }}
-        // textStyle={{color: '#000'}}
-
-        // </View>
-        // ),
-      },
     ]}
   />
 );
