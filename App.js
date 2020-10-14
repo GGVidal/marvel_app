@@ -4,6 +4,7 @@ import Onboarding from 'react-native-onboarding-swiper';
 import AsyncStorage from '@react-native-community/async-storage'
 
 import Intro from './src/pages/Intro';
+import SearchHero from './src/pages/SearchHero';
 import Reactotron from 'reactotron-react-native';
 
 console.tron = Reactotron
@@ -27,6 +28,7 @@ const Simple = () => (
     showSkip={false}
     pages={[
       Intro,
+      SearchHero
     ]}
   />
 );

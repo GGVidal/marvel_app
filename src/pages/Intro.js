@@ -1,21 +1,21 @@
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 
 const Intro = () => {
   return (
     <View>
       <Image
+        style={styles.image}
         resizeMode="stretch"
-        style={{
-          alignSelf: 'center',
-          width: 350,
-          height: 350,
-        }}
         source={require('../assets/marvel-282124.png')}
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {alignSelf: 'center', width: 350, height: 350},
+});
 
 export default {
   backgroundColor: '#a61202',
