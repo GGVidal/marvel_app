@@ -5,24 +5,29 @@ import {getChar} from '../services/API';
 import Searchbar from '../components/Searchbar';
 import CardComponent from '../components/Card';
 
-const SearchHero = () => {
+const SearchHero = ({navigation}) => {
   const [char, setChar] = useState({});
 
+  const onNavigate = () => {
+    navigation.navigate("Comics")
+  }
   const fetchChar = async (charName) => {
     const res = await getChar(charName);
     const {id, name, description, thumbnail, comics} = res[0];
     const {path, extension} = thumbnail;
     const charImage = `${path}.${extension}`;
+    const comicUri = comics.collectionURI;
     const charObj = {
       id,
       name,
       description,
-      path,
       charImage,
+      comicUri
     };
     console.tron.log(charObj);
     setChar(charObj);
   };
+  const {name, charImage, comicUri, description, id} = char || {};
   return (
     <>
       <View style={styles.container}>
@@ -31,9 +36,12 @@ const SearchHero = () => {
       {Object.keys(char).length ? (
         <View style={styles.infoContainer}>
           <CardComponent
-            name={char.name}
-            charImage={char.charImage}
-            description={char.description}
+            name={name}
+            id={id}
+            charImage={charImage}
+            comicUri={comicUri}
+            description={description}
+            onNavigate={onNavigate}
           />
         </View>
       ) : null}
@@ -53,5 +61,4 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
 });
-
-export default {backgroundColor: '#a61202', title: <SearchHero />};
+export default SearchHero;

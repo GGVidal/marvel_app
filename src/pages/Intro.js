@@ -14,12 +14,8 @@ const Intro = () => {
 };
 
 const styles = StyleSheet.create({
-  image: {alignSelf: 'center', width: 350, height: 350},
+  image: {alignSelf: 'center', width: 350, height: 250},
 });
 
-export default {
-  backgroundColor: '#a61202',
-  image: <Intro />,
-  title: 'Choose your hero',
-  subtitle: 'Swipe up to search for your favorite hero',
-};
+export default Intro;
+
