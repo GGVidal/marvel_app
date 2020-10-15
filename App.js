@@ -1,11 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import Onboarding from 'react-native-onboarding-swiper';
 import AsyncStorage from '@react-native-community/async-storage';
-
-import Intro from './src/pages/Intro';
-import SearchHero from './src/pages/SearchHero';
 import Reactotron from 'reactotron-react-native';
+
+import Routes from './src/routes';
 
 console.tron = Reactotron.setAsyncStorageHandler(AsyncStorage) // AsyncStorage would either come from `react-native` or `@react-native-community/async-storage` depending on where you get it from
   .configure({
@@ -22,12 +20,7 @@ console.tron = Reactotron.setAsyncStorageHandler(AsyncStorage) // AsyncStorage w
     overlay: false, // just turning off overlay
   })
   .connect();
-const App = () => (
-  <Onboarding
-    onDone={() => console.log('done')}
-    showSkip={false}
-    pages={[Intro, SearchHero]}
-  />
-);
+
+const App = () => <Routes />;
 
 export default App;
