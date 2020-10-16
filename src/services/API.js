@@ -7,9 +7,9 @@ const API_KEY = 'bf6f611ecdb0b4f563506bbf68cc2d655932a3e2';
 const ts = Number(new Date());
 const hash = md5.create();
 hash.update(ts + API_KEY + PUBLIC_KEY);
-const authorizationConfig = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash.hex()}`
+const authorizationConfig = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash.hex()}`;
 
-const getChar = async (queryParam) => {  
+const getChar = async (queryParam) => {
   try {
     const request = await axios.get(
       `${BASE_URL}:443/v1/public/characters?${authorizationConfig}&limit=10&name=${queryParam}`,
@@ -23,9 +23,18 @@ const getChar = async (queryParam) => {
   }
 };
 
-const getCharComics = async(id) => {
-  const request = await axios.get(`${BASE_URL}/v1/public/characters/${id}/comics?${authorizationConfig}&limit=30`);
-  console.tron.log(request.data.data);
-}
+const getCharComics = async (id, offset) => {
+  try {
+    const request = await axios.get(
+      `${BASE_URL}/v1/public/characters/${id}/comics?${authorizationConfig}&offset=${offset}limit=10`,
+    );
+    if (request.status === 200) {
+      return request.data.data.results;
+    }
+    console.tron.log(request.data.data);
+  } catch (err) {
+    console.log(err.message)
+  }
+};
 
 export {getChar, getCharComics};
