@@ -26,7 +26,7 @@ const getChar = async (queryParam) => {
 const getCharComics = async (id, offset) => {
   try {
     const request = await axios.get(
-      `${BASE_URL}/v1/public/characters/${id}/comics?${authorizationConfig}&offset=${offset}limit=10`,
+      `${BASE_URL}/v1/public/characters/${id}/comics?${authorizationConfig}&offset=${offset}&limit=20`,
     );
     if (request.status === 200) {
       return request.data.data.results;
