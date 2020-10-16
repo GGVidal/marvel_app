@@ -1,23 +1,21 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import Reactotron from 'reactotron-react-native';
 
 import Routes from './src/routes';
 
-console.tron = Reactotron.setAsyncStorageHandler(AsyncStorage) // AsyncStorage would either come from `react-native` or `@react-native-community/async-storage` depending on where you get it from
+console.tron = Reactotron.setAsyncStorageHandler(AsyncStorage)
   .configure({
     name: 'React Native Demo',
   })
   .useReactNative({
-    asyncStorage: false, // there are more options to the async storage.
+    asyncStorage: false,
     networking: {
-      // optionally, you can turn it off with false.
       ignoreUrls: /symbolicate/,
     },
-    editor: false, // there are more options to editor
-    errors: {veto: (stackFrame) => false}, // or turn it off with false
-    overlay: false, // just turning off overlay
+    editor: false, 
+    errors: {veto: (stackFrame) => false}, 
+    overlay: false,
   })
   .connect();
 

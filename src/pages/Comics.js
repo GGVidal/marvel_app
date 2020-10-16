@@ -28,11 +28,9 @@ const Comics = ({route}) => {
   const getData = async () => {
     console.log('getData');
     setLoading(true);
-    //Service to get the data from the server to render
     try {
       const res = await getCharComics(id, offset);
-      setOffset(offset + 10);
-      //Increasing the offset for the next API call
+      setOffset(offset + 20);
       setDataSource([...dataSource, ...res]);
       setLoading(false);
     } catch (err) {
@@ -41,12 +39,10 @@ const Comics = ({route}) => {
   };
   const renderFooter = () => {
     return (
-      //Footer View with Load More button
       <View style={styles.footer}>
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={getData}
-          //On Click of button load more data
           style={styles.loadMoreBtn}>
           <Text style={styles.btnText}>Load More</Text>
           {loading ? (
@@ -56,7 +52,7 @@ const Comics = ({route}) => {
       </View>
     );
   };
-
+  
   const ItemView = ({item}) => {
     return (
       <TouchableOpacity
@@ -65,15 +61,15 @@ const Comics = ({route}) => {
           style={{height: 50, width: 50, borderRadius: 25}}
           source={{uri: `${item.thumbnail.path}.${item.thumbnail.extension}`}}
         />
-        <Text style={{marginLeft: 10}}>{item.title}</Text>
         <Text style={{marginLeft: 10}}>{item.id}</Text>
+        <Text style={{marginLeft: 10, flex: 1}}>{item.title}</Text>
+        <Text style={{marginLeft: 10}}>{item.prices[0].price}</Text>
       </TouchableOpacity>
     );
   };
 
   const ItemSeparatorView = () => {
     return (
-      // Flat List Item Separator
       <View
         style={{
           height: 0.5,
