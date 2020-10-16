@@ -9,7 +9,9 @@ const SearchHero = ({navigation}) => {
   const [char, setChar] = useState({});
 
   const onNavigate = () => {
-    navigation.navigate("Comics")
+    navigation.navigate("Comics", {
+      id: char.id
+    })
   }
   const fetchChar = async (charName) => {
     const res = await getChar(charName);
@@ -24,7 +26,6 @@ const SearchHero = ({navigation}) => {
       charImage,
       comicUri
     };
-    console.tron.log(charObj);
     setChar(charObj);
   };
   const {name, charImage, comicUri, description, id} = char || {};

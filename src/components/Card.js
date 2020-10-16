@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Card, Text} from 'react-native-elements';
 import {ActivityIndicator, StyleSheet} from 'react-native';
 
-const CardComponent = ({name, charImage, description}) => {
+const CardComponent = ({name, charImage, id, description, onNavigate}) => {
   return (
     <Card containerStyle={styles.cardContainer}>
       <Card.Title>
@@ -22,6 +22,7 @@ const CardComponent = ({name, charImage, description}) => {
         buttonStyle={styles.buttonStyle}
         title="CHECK THE COMICS"
         titleStyle={{color: '#cf352e'}}
+        onPress={()=> onNavigate()}
       />
     </Card>
   );
