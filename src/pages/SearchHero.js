@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Modal} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import _ from 'lodash';
 import {Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -10,7 +10,7 @@ import CardComponent from '../components/Card';
 
 const SearchHero = ({navigation}) => {
   const [char, setChar] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
+  const [error, setError] = useState({});
   const onNavigate = () => {
     navigation.navigate('Comics', {
       id: char.id,
@@ -18,7 +18,18 @@ const SearchHero = ({navigation}) => {
   };
   const fetchChar = async (charName) => {
     const res = await getChar(charName);
-    const {id, name, description, thumbnail, comics} = res[0];
+    if (res.code === 200 && _.isEmpty(res.data)) {
+      setError({error: true, message: 'No heroes found'});
+      setChar({});
+      return;
+    }
+
+    if (res.code !== 200) {
+      setError({error: true, message: 'Server Error'});
+      setChar({});
+      return;
+    }
+    const {id, name, description, thumbnail, comics} = res.data[0];
     const {path, extension} = thumbnail;
     const charImage = `${path}.${extension}`;
     const comicUri = comics.collectionURI;
@@ -30,6 +41,7 @@ const SearchHero = ({navigation}) => {
       comicUri,
     };
     setChar(charObj);
+    setError({});
   };
   const {name, charImage, comicUri, description, id} = char || {};
   return (
@@ -37,11 +49,17 @@ const SearchHero = ({navigation}) => {
       <View style={styles.container}>
         <Searchbar fetchChar={fetchChar} />
       </View>
-
-      {_.isEmpty(char) ? (
+      {error.error ? (
+        <View style={styles.descriptionContainer}>
+          <Icon name="exclamation-triangle" size={56} color="#fada5f" />
+          <Text>{error.message}</Text>
+        </View>
+      ) : _.isEmpty(char) ? (
         <View style={styles.descriptionContainer}>
           <Icon name="search" size={56} color="#F8F8FF" />
-          <Text h4 style={{color: '#F8F8FF'}}>Find your favorite hero.</Text>
+          <Text h4 style={{color: '#F8F8FF'}}>
+            Find your favorite hero.
+          </Text>
           <Text style={{color: '#848482', marginTop: 5}}>
             And you can also check some infos about your hero
           </Text>
@@ -49,7 +67,7 @@ const SearchHero = ({navigation}) => {
       ) : null}
 
       <View style={styles.infoContainer}>
-        {Object.keys(char).length ? (
+        {!_.isEmpty(char) ? (
           <CardComponent
             name={name}
             id={id}
@@ -76,11 +94,11 @@ const styles = StyleSheet.create({
     marginBottom: 80,
     minHeight: 150,
   },
-  descriptionContainer : {
-    marginTop: 100, 
-    flex: 1, 
-    flexDirection: 'column', 
-    alignItems: "center"
-  }
+  descriptionContainer: {
+    marginTop: 100,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 });
 export default SearchHero;
