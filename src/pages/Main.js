@@ -25,21 +25,39 @@ const Main = ({navigation}) => {
     longitudeDelta: 0.0121,
   };
 
-  const latLong = {
-    latitude: -3.743616,
-    longitude: -38.535392,
-  };
+  const comicStores = [
+    {
+      latLong: {
+        latitude: -3.743573,
+        longitude: -38.535328,
+      },
+      title: 'COMIC 1',
+      description: 'COMIC 1 Description',
+    },
+    {
+      latLong: {
+        latitude: -3.751546,
+        longitude: -38.505034,
+      },
+      title: 'COMIC 2',
+      description: 'COMIC 2 Description',
+    },
+    {
+      latLong: {
+        latitude: -3.790889,
+        longitude: -38.48072,
+      },
+      title: 'COMIC 3',
+      description: 'COMIC 3 Description',
+    },
+  ];
 
   return (
     <Onboarding
+      showDone={false}
       showSkip={false}
       pages={[
-        {
-          backgroundColor: '#a61202',
-          image: <Intro />,
-          title: 'Choose your hero',
-          subtitle: 'Swipe up to search for your favorite hero',
-        },
+        Intro,
         {
           backgroundColor: '#a61202',
           title: <SearchHero navigation={navigation} />,
@@ -51,12 +69,16 @@ const Main = ({navigation}) => {
               <MapView
                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 style={styles.map}
-                region={region}>
-                <Marker
-                  coordinate={latLong}
-                  title="Title"
-                  description="description"
-                />
+                region={region}
+                maxZoomLevel={20}
+                minZoomLevel={12}>
+                {comicStores.map((comic) => (
+                  <Marker
+                    coordinate={comic.latLong}
+                    title={comic.title}
+                    description={comic.description}
+                  />
+                ))}
               </MapView>
             </View>
           ),
