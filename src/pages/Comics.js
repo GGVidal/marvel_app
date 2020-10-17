@@ -44,7 +44,7 @@ const Comics = ({route}) => {
           activeOpacity={0.9}
           onPress={getData}
           style={styles.loadMoreBtn}>
-          <Text style={styles.btnText}>Load More</Text>
+          <Text style={styles.btnText}>{_.isEmpty(dataSource)? 'Loading' : 'Load More'}</Text>
           {loading ? (
             <ActivityIndicator color="white" style={{marginLeft: 8}} />
           ) : null}
