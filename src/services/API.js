@@ -10,16 +10,16 @@ hash.update(ts + API_KEY + PUBLIC_KEY);
 const authorizationConfig = `ts=${ts}&apikey=${PUBLIC_KEY}&hash=${hash.hex()}`;
 
 const getChar = async (queryParam) => {
+  const resObj = {};
   try {
     const request = await axios.get(
       `${BASE_URL}:443/v1/public/characters?${authorizationConfig}&limit=10&name=${queryParam}`,
     );
-    console.tron.log(request.data.data.results);
     if (request.status === 200) {
-      return request.data.data.results;
+      return {...resObj, code: request.status, data: request.data.data.results};  
     }
   } catch (err) {
-    console.log(err.message);
+    return {...resObj, code: err.request.status, data:''}
   }
 };
 
@@ -31,7 +31,6 @@ const getCharComics = async (id, offset) => {
     if (request.status === 200) {
       return request.data.data.results;
     }
-    console.tron.log(request.data.data);
   } catch (err) {
     console.log(err.message)
   }
