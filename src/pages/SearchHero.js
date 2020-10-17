@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Modal} from 'react-native';
+import _ from 'lodash';
+import {Text} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {getChar} from '../services/API';
 import Searchbar from '../components/Searchbar';
@@ -7,12 +10,12 @@ import CardComponent from '../components/Card';
 
 const SearchHero = ({navigation}) => {
   const [char, setChar] = useState({});
-
+  const [modalVisible, setModalVisible] = useState(false);
   const onNavigate = () => {
-    navigation.navigate("Comics", {
-      id: char.id
-    })
-  }
+    navigation.navigate('Comics', {
+      id: char.id,
+    });
+  };
   const fetchChar = async (charName) => {
     const res = await getChar(charName);
     const {id, name, description, thumbnail, comics} = res[0];
@@ -24,7 +27,7 @@ const SearchHero = ({navigation}) => {
       name,
       description,
       charImage,
-      comicUri
+      comicUri,
     };
     setChar(charObj);
   };
@@ -34,8 +37,19 @@ const SearchHero = ({navigation}) => {
       <View style={styles.container}>
         <Searchbar fetchChar={fetchChar} />
       </View>
-      {Object.keys(char).length ? (
-        <View style={styles.infoContainer}>
+
+      {_.isEmpty(char) ? (
+        <View style={styles.descriptionContainer}>
+          <Icon name="search" size={56} color="#F8F8FF" />
+          <Text h4 style={{color: '#F8F8FF'}}>Find your favorite hero.</Text>
+          <Text style={{color: '#848482', marginTop: 5}}>
+            And you can also check some infos about your hero
+          </Text>
+        </View>
+      ) : null}
+
+      <View style={styles.infoContainer}>
+        {Object.keys(char).length ? (
           <CardComponent
             name={name}
             id={id}
@@ -44,8 +58,8 @@ const SearchHero = ({navigation}) => {
             description={description}
             onNavigate={onNavigate}
           />
-        </View>
-      ) : null}
+        ) : null}
+      </View>
     </>
   );
 };
@@ -53,13 +67,20 @@ const SearchHero = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     backgroundColor: '#F8F8FF',
     borderRadius: 10,
-    maxHeight: 80,
+    maxHeight: 60,
   },
   infoContainer: {
     marginBottom: 80,
+    minHeight: 150,
   },
+  descriptionContainer : {
+    marginTop: 100, 
+    flex: 1, 
+    flexDirection: 'column', 
+    alignItems: "center"
+  }
 });
 export default SearchHero;
