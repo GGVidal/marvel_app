@@ -11,6 +11,8 @@ import {Header} from 'react-native-elements';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import _ from 'lodash';
 
+import Colors from '../constants/Colors';
+
 const ComicsMaps = () => {
   const [comic, setComic] = useState({});
 
@@ -43,7 +45,6 @@ const ComicsMaps = () => {
       title: 'Revistaria Art Cult',
     },
   ];
-  console.tron.log('comic', comic);
   const ItemView = ({item}) => {
     return (
       <TouchableOpacity
@@ -66,7 +67,7 @@ const ComicsMaps = () => {
         style={{
           height: 0.5,
           width: '100%',
-          backgroundColor: '#C8C8C8',
+          backgroundColor: Colors.grayFlatlist,
         }}
       />
     );
@@ -74,13 +75,13 @@ const ComicsMaps = () => {
   return (
     <>
       <Header
-      leftComponent={{ icon: 'menu', color: 'black' }}
-      rightComponent={{ icon: 'home', color: 'black' }}
+        leftComponent={{icon: 'menu', color: Colors.blackHeaderLocalization}}
+        rightComponent={{icon: 'home', color: Colors.blackHeaderLocalization}}
         centerComponent={{
           text: 'COMICS LOCALIZATION',
-          style: {color: '#100c08'},
+          style: {color: Colors.blackHeaderLocalization},
         }}
-        containerStyle={{backgroundColor: '#F8F8FF'}}
+        containerStyle={{backgroundColor: Colors.blackIconSearch, marginTop: 20}}
       />
       <View style={styles.container}>
         <MapView

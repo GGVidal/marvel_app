@@ -2,6 +2,8 @@ import React from 'react';
 import {Button, Card, Text} from 'react-native-elements';
 import {ActivityIndicator, StyleSheet} from 'react-native';
 
+import Colors from '../constants/Colors';
+
 const CardComponent = ({name, charImage, id, description, onNavigate}) => {
   return (
     <Card containerStyle={styles.cardContainer}>
@@ -29,7 +31,7 @@ const CardComponent = ({name, charImage, id, description, onNavigate}) => {
 };
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: '#F8F8FF',
+    backgroundColor: Colors.blackIconSearch,
     borderRadius: 10,
   },
   imageContainer: {
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     marginBottom: 0,
-    borderColor: '#F8F8FF',
+    borderColor: Colors.blackIconSearch,
   },
 });
 export default CardComponent;
