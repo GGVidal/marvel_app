@@ -95,7 +95,6 @@ const Comics = ({route}) => {
       </View>
     </SafeAreaView>
   );
-  // return(<View><Text>Teste</Text></View>)
 };
 
 const styles = StyleSheet.create({
