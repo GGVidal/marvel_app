@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {getChar} from '../services/API';
 import Searchbar from '../components/Searchbar';
 import CardComponent from '../components/Card';
+import Colors from '../constants/Colors';
 
 const SearchHero = ({navigation}) => {
   const [char, setChar] = useState({});
@@ -51,16 +52,20 @@ const SearchHero = ({navigation}) => {
       </View>
       {error.error ? (
         <View style={styles.descriptionContainer}>
-          <Icon name="exclamation-triangle" size={56} color="#fada5f" />
+          <Icon
+            name="exclamation-triangle"
+            size={56}
+            color={Colors.yellowWarning}
+          />
           <Text>{error.message}</Text>
         </View>
       ) : _.isEmpty(char) ? (
         <View style={styles.descriptionContainer}>
-          <Icon name="search" size={56} color="#F8F8FF" />
-          <Text h4 style={{color: '#F8F8FF'}}>
+          <Icon name="search" size={56} color={Colors.blackIconSearch} />
+          <Text h4 style={{color: Colors.blackIconSearch}}>
             Find your favorite hero.
           </Text>
-          <Text style={{color: '#848482', marginTop: 5}}>
+          <Text style={{color: Colors.grayDescription, marginTop: 5}}>
             And you can also check some infos about your hero
           </Text>
         </View>
@@ -86,7 +91,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#F8F8FF',
+    backgroundColor: Colors.blackIconSearch,
     borderRadius: 10,
     maxHeight: 60,
   },

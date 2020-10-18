@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Image} from 'react-native';
 import {Text} from 'react-native-elements';
 
+import Colors from '../constants/Colors';
+
 const Intro = () => {
   return (
     <>
@@ -15,10 +17,10 @@ const Intro = () => {
         </View>
 
         <View style={{marginTop: 50, width: 330, marginHorizontal: 15}}>
-          <Text h4 style={{color: '#f7fcfe'}}>
+          <Text h4 style={{color: Colors.whiteTitleIntro}}>
             Welcome to Marvel Hero App.
           </Text>
-          <Text style={{color: '#abafae', marginTop: 15}}>
+          <Text style={{color: Colors.grayIntro, marginTop: 15}}>
             Here you can search your favorite heroes and also check the nearest
             comic stores.
           </Text>
@@ -29,7 +31,7 @@ const Intro = () => {
 };
 
 export default {
-  backgroundColor: '#a61202',
+  backgroundColor: Colors.redBackground,
   image: undefined,
   title: <Intro />,
   subtitle: '',

@@ -13,6 +13,7 @@ import {
 import _ from 'lodash';
 
 import {getCharComics} from '../services/API';
+import Colors from '../constants/Colors';
 const Comics = ({route}) => {
   const [loading, setLoading] = useState(true);
   const [dataSource, setDataSource] = useState([]);
@@ -74,7 +75,7 @@ const Comics = ({route}) => {
         style={{
           height: 0.5,
           width: '100%',
-          backgroundColor: '#C8C8C8',
+          backgroundColor: Colors.grayFlatlist,
         }}
       />
     );
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   },
   loadMoreBtn: {
     padding: 10,
-    backgroundColor: '#800000',
+    backgroundColor: Colors.redLoadMoreComics,
     borderRadius: 4,
     flexDirection: 'row',
     justifyContent: 'center',
